@@ -1,0 +1,89 @@
+# Copyright or c or Copr. 2011, Michael Hauspie
+#
+# Author e-mail: michael.hauspie@lifl.fr
+#
+# This software is a computer program whose purpose is to design an
+# efficient Web server for very-constrained embedded system.
+#
+# This software is governed by the CeCILL license under French law and
+# abiding by the rules of distribution of free software.  You can  use,
+# modify and/ or redistribute the software under the terms of the CeCILL
+# license as circulated by CEA, CNRS and INRIA at the following URL
+# "http://www.cecill.info".
+#
+# As a counterpart to the access to the source code and  rights to copy,
+# modify and redistribute granted by the license, users are provided only
+# with a limited warranty  and the software's author,  the holder of the
+# economic rights,  and the successive licensors  have only  limited
+# liability.
+#
+# In this respect, the user's attention is drawn to the risks associated
+# with loading,  using,  modifying and/or developing or reproducing the
+# software by the user in light of its specific status of free software,
+# that may mean  that it is complicated to manipulate,  and  that  also
+# therefore means  that it is reserved for developers  and  experienced
+# professionals having in-depth computer knowledge. Users are therefore
+# encouraged to load and test the software's suitability as regards their
+# requirements in conditions enabling the security of their systems and/or
+# data to be ensured and,  more generally, to use and operate it in the
+# same conditions as regards security.
+#
+# The fact that you are presently reading this means that you have had
+# knowledge of the CeCILL license and that you accept its terms.
+
+
+import os
+import sys,subprocess
+
+
+def check_output(args):
+    str = ""
+    try:
+        process = subprocess.Popen(args, stdout=subprocess.PIPE)
+        output,void = process.communicate()
+        str += output
+    except subprocess.CalledProcessError as e:
+        sys.stderr.write("{} returned {}\n".format(args, e.returncode))
+    except OSError as e:
+        sys.stderr.write("failed to execute process: {}".format(args))
+    finally:
+        return str
+
+def execute(args):
+    try:
+        devnull = open(os.devnull, mode="a+")
+        subprocess.check_call(args, stdout=devnull)
+    except subprocess.CalledProcessError as e:
+        sys.stderr.write("{} returned {}\n".format(args, e.returncode))
+    except OSError as e:
+        sys.stderr.write("failed to execute process: {}\n".format(args))
+
+Import('env binDir projectName elfName targetDir')
+
+
+# Clone rflpc if needed
+args = [os.path.join('..', '..', targetDir, 'summon-rflpc')]
+execute(args)
+
+# Get the cflags and ldflags from rflpc-config
+args = [os.path.join('..','..',targetDir,'rflpc', 'rflpc-config'), '--cflags']
+cflags = check_output(args)
+
+args[1] = '--ldflags'
+ldflags = check_output(args)
+
+args[1] = '--lib'
+lib = check_output(args)
+
+env.Replace(CC = 'arm-none-eabi-gcc')
+env.Replace(AS = 'arm-none-eabi-as')
+env.Replace(AR = 'arm-none-eabi-ar')
+env.Replace(RANLIB = 'arm-none-eabi-ranlib')
+env.Append(CCFLAGS = cflags)
+env.Append(CCFLAGS = '-DENABLE_LL_CACHE')
+#env.Append(CCFLAGS = '-DMBED_USE_LCD_DISPLAY')
+env.Append(LIBS = lib)
+env.Append(LINKFLAGS = ldflags)
+
+binaryName = projectName + '.bin'
+env.Command(binaryName, elfName, ['arm-none-eabi-objcopy -O binary -j .text -j .data $SOURCE $TARGET'])

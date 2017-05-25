@@ -1,0 +1,6 @@
+.sconsign.dblite
+*.aux
+*.fls
+*.log
+*.toc
+userguide.out

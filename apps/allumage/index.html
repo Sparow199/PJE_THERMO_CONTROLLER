@@ -1,0 +1,54 @@
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta http-equiv="Content-Language" content="fr" />
+ <meta name="author" content="AOUDIA_ADANSAR" />
+ <link rel="stylesheet" type="text/css" href="controls.css">
+ <title>  LEDS CONTROLS </title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script language="Javascript" type="text/javascript">
+	function ajGet(url) {
+	    var xhr;
+	  xhr = new XMLHttpRequest();
+		xhr.open("GET", url, true);
+	    	xhr.send(null);
+	}
+</script>
+
+
+</head>
+
+<body>
+<form method="GET" id="commandes" >
+
+  <h1>LEDS CONTROLS</h1>
+  <!-- Rounded switch -->
+  <label class="switch" >
+
+    <input type="radio" name="val" onclick="ajGet('source?val=1')">
+    <div class="slider round"></div>
+  </label>
+
+  <!-- Rounded switch -->
+  <label class="switch">
+    <input type="radio" name="val" onclick="ajGet('source?val=2')" >
+    <div class="slider round"></div>
+  </label>
+
+  <!-- Rounded switch -->
+  <label class="switch">
+    <input type="radio" name="val" onclick="ajGet('source?val=3')" >
+    <div class="slider round"></div>
+  </label>
+
+  <!-- Rounded switch -->
+  <label class="switch">
+    <input type="radio" name="val" onclick="ajGet('source?val=4')" >
+    <div class="slider round"></div>
+  </label>
+
+</form>
+</body>
+</html>

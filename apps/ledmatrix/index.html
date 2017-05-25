@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Smews LED Matrix control</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/spectrum.css" rel="stylesheet">
+    <style>
+      body { 
+      background: lightgray; 
+      padding-top: 60px; 
+      }
+      .color {
+      text-align: center;
+      width: 64px;
+      height: 64px;
+      border: none;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      border-radius: 15px;
+      }
+      h1 {text-align: center}
+      .center {text-align: center}
+    </style>
+    <link href="assets/css/bootstrap_responsive.min.css" rel="stylesheet">
+  </head>
+  
+  <body>
+    <div class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">
+            LED Matrix controlled by Smews
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row-fluid">
+	<div class="span3"></div>
+	<div class="span6">
+
+	  <h1>Select text and color</h1>
+	  <div class="center">
+	    <p>
+	      <input id="colorinput" type="color" name="color" class="color" onchange="changeColor(this.value)"> 
+	      &nbsp; <input size="64" id="textinput" type="text" name="text" onchange="changeText(this.value)" value="">
+	    </p>
+	  </div>
+	  <h1>Try me!</h1>
+	  <div class="center">
+	    <p>
+	      <img src="assets/imgs/qrcode.png" alt="QRCode" />
+	    </p>
+	  </div>
+	</div>
+      </div>
+      <div class="span3">
+      </div>
+
+
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/bootstrap.min.js"></script>
+      <script src="assets/js/spectrum.js"></script>
+      <script src="assets/js/ledmatrix.js"></script>
+  </body>
+
+</html>
