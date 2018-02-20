@@ -1,6 +1,10 @@
 # ThermoController
 ![Logo](https://cloud.githubusercontent.com/assets/22281426/26443924/978eaa02-413a-11e7-9483-25eaf016deba.png)
 
+# Authors
+  - Mohamed ADANSAR => a1h@hotmail.fr
+  - Moncef AOUDIA 
+
 ThermoController is an application that is part of our master project of the Web of Thing module at Lille University. The application runs on a Smews server (stands for Smart & Mobile Embedded Web Server).
 An embedded web server is a web server intended to be used on an embedded system and allowing to consult and act on it as on any element of the web.
 The application is divided into two main parts:
